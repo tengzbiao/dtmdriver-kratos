@@ -1,4 +1,4 @@
-module github.com/dtm-labs/dtmdriver-kratos
+module github.com/tengzbiao/dtmdriver-kratos
 
 go 1.15
 
