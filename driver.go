@@ -7,6 +7,7 @@ import (
 	"github.com/dtm-labs/dtmdriver"
 	consul "github.com/go-kratos/kratos/contrib/registry/consul/v2"
 	etcd "github.com/go-kratos/kratos/contrib/registry/etcd/v2"
+	nacos "github.com/go-kratos/kratos/contrib/registry/nacos/v2"
 	"github.com/go-kratos/kratos/v2/registry"
 	_ "github.com/go-kratos/kratos/v2/transport/grpc/resolver/direct"
 	"github.com/go-kratos/kratos/v2/transport/grpc/resolver/discovery"
