@@ -7,7 +7,6 @@ import (
 	"github.com/dtm-labs/dtmdriver"
 	consul "github.com/go-kratos/kratos/contrib/registry/consul/v2"
 	etcd "github.com/go-kratos/kratos/contrib/registry/etcd/v2"
-	nacos "github.com/go-kratos/kratos/contrib/registry/nacos/v2"
 	"github.com/go-kratos/kratos/v2/registry"
 	_ "github.com/go-kratos/kratos/v2/transport/grpc/resolver/direct"
 	"github.com/go-kratos/kratos/v2/transport/grpc/resolver/discovery"
@@ -105,6 +104,11 @@ func (k *kratosDriver) RegisterService(target string, endpoint string) error {
 			namespaceId = "public"
 		}
 
+		groupName := u.Query().Get("groupName")
+		if groupName == "" {
+			groupName = "DEFAULT_GROUP"
+		}
+
 		timeoutMs := uint64(5000)
 		if u.Query().Get("timeoutMs") != "" {
 			timeoutMs, err = strconv.ParseUint(u.Query().Get("timeoutMs"), 10, 64)
@@ -131,7 +135,7 @@ func (k *kratosDriver) RegisterService(target string, endpoint string) error {
 			return err
 		}
 
-		r := nacos.New(client)
+		r := nacos.New(client, nacos.WithGroup(groupName))
 
 		resolver.Register(discovery.NewBuilder(r, discovery.WithInsecure(true)))
 
